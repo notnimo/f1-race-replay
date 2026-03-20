@@ -279,8 +279,8 @@ class F1RaceReplayWindow(arcade.Window):
             }
         }
 
-        # Attach track geometry for insight windows
-        if hasattr(self, 'plot_x_ref'):
+        # Send every ~2s so reconnecting clients receive geometry without special handling
+        if hasattr(self, 'plot_x_ref') and int(self.frame_index) % 120 == 0:
             payload["track_geometry"] = {
                 "x": self.plot_x_ref.tolist(),
                 "y": self.plot_y_ref.tolist(),

@@ -79,9 +79,11 @@ class _TrackMapWidget(QWidget):
         if len(x_center) < 3:
             return
 
-        # Rotate around centroid to match the main window orientation
-        cx = sum(x_center) / len(x_center)
-        cy = sum(y_center) / len(y_center)
+        # Rotate around bbox midpoint (matches the Arcade window's world_to_screen)
+        all_xs = list(x_center) + list(x_inner) + list(x_outer)
+        all_ys = list(y_center) + list(y_inner) + list(y_outer)
+        cx = (min(all_xs) + max(all_xs)) / 2
+        cy = (min(all_ys) + max(all_ys)) / 2
         rad = math.radians(rotation_deg)
         cos_r, sin_r = math.cos(rad), math.sin(rad)
 
